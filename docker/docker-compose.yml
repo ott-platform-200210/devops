@@ -1,0 +1,27 @@
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 123456789
+      POSTGRES_DB: ott_db
+    ports:
+      - "5442:5432"
+    networks:
+      - ott-platform
+  redis:
+    container_name: redis_container
+    image: redis:latest
+    restart: unless-stopped
+    ports:
+      - "6079:6379"
+  redis_insight:
+    container_name: redis_insight_container
+    image: redis/redisinsight:latest
+    ports:
+      - "5540:5540"
+networks:
+  ott-platform:
+    driver: bridge
